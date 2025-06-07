@@ -17,16 +17,30 @@
   </head>
   <body>
     <script src="/socket.io/socket.io.js"></script>
-    <script type="module" src="./result.js"></script>
 
-    <!-- QR 코드 표시 -->
+    <!-- QR 코드 표시용 div -->
     <div id="qr"></div>
+
+    <!-- QRCode 라이브러리 먼저 로드 -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+    <!-- QR 생성 코드: 반드시 QRCode가 로드된 후 실행 -->
     <script>
-      const url = "https://vote-game.onrender.com";
-      QRCode.toCanvas(document.getElementById("qr"), url, { width: 180 }, function (error) {
-        if (error) console.error(error);
+      window.addEventListener("load", () => {
+        const url = "https://vote-game.onrender.com";
+        const qrTarget = document.getElementById("qr");
+
+        if (QRCode && qrTarget) {
+          QRCode.toCanvas(qrTarget, url, { width: 180 }, function (error) {
+            if (error) console.error(error);
+          });
+        } else {
+          console.warn("QRCode library or target not ready.");
+        }
       });
     </script>
+
+    <!-- Kaboom 결과 로직은 마지막에 -->
+    <script type="module" src="./result.js"></script>
   </body>
 </html>
