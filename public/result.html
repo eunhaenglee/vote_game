@@ -4,23 +4,22 @@
     <title>Kaboom Vote Result</title>
     <meta charset="utf-8" />
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: #0e1d2f; /* Kaboom bg color fallback */
-        overflow: hidden;
-      }
       #qr {
         position: absolute;
         bottom: 32px;
         left: 50%;
         transform: translateX(-50%);
         z-index: 999;
+        background: white;
+        padding: 8px;
+        border-radius: 4px;
       }
     </style>
   </head>
   <body>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <script type="module" src="./result.js"></script>
+    <div id="qr"></div>
   </body>
 </html>
