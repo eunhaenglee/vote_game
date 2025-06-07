@@ -1,5 +1,5 @@
 // ==========================
-// 🎇 Kaboom.js - 스페셜 이벤트 효과 추가 + 결과별 사운드 분기
+// 🎇 Kaboom.js - 스페셜 이벤트 효과 + QR코드 안정 출력
 // ==========================
 import kaboom from "https://unpkg.com/kaboom@3000.0.0-beta.2/dist/kaboom.mjs";
 
@@ -35,18 +35,20 @@ let questionLabel = add([
 const inputBox = document.createElement("input");
 inputBox.type = "text";
 inputBox.placeholder = "Type new question and press Enter...";
-inputBox.style.position = "absolute";
-inputBox.style.top = "20px";
-inputBox.style.left = "50%";
-inputBox.style.transform = "translateX(-50%)";
-inputBox.style.padding = "14px 24px";
-inputBox.style.borderRadius = "14px";
-inputBox.style.border = "none";
-inputBox.style.background = "#1e2a3a";
-inputBox.style.color = "#fff";
-inputBox.style.fontSize = "17px";
-inputBox.style.outline = "none";
-inputBox.style.fontFamily = "'Amazon Ember', sans-serif";
+Object.assign(inputBox.style, {
+  position: "absolute",
+  top: "20px",
+  left: "50%",
+  transform: "translateX(-50%)",
+  padding: "14px 24px",
+  borderRadius: "14px",
+  border: "none",
+  background: "#1e2a3a",
+  color: "#fff",
+  fontSize: "17px",
+  outline: "none",
+  fontFamily: "'Amazon Ember', sans-serif",
+});
 document.body.appendChild(inputBox);
 
 inputBox.addEventListener("keydown", (e) => {
@@ -165,7 +167,7 @@ function updateBars(aCount, bCount) {
 }
 
 function logResult() {
-  const logText = `Round ${round++}: A ${lastResult.aPercent}% (${lastResult.aCount}) | B ${lastResult.bPercent}% (${lastResult.bCount})\n→ ${currentQuestion}`;
+  const logText = `Round ${round++}: A ${lastResult.aPercent}% (${lastResult.aCount}) | B ${lastResult.bPercent}% (${lastResult.bCount})\n\u2192 ${currentQuestion}`;
   add([
     text(logText, { size: 16, color: textColor }),
     pos(60, logStartY),
@@ -231,35 +233,22 @@ function playRevealEffect(result) {
     ]);
   }
 
-  if (gap <= 5) {
-    play("pop");
-  } else if (gap > 10) {
-    play("fail");
-  } else {
-    play("neutral");
-  }
+  if (gap <= 5) play("pop");
+  else if (gap > 10) play("fail");
+  else play("neutral");
 }
 
 socket.on("update", ({ A, B }) => {
   updateBars(A, B);
 });
 
-// ===== QR 코드 출력 (결과창 맨 아래 중앙) =====
+// === QR 코드 삽입 ===
 const qrDiv = document.createElement("div");
 qrDiv.id = "qr";
-qrDiv.style.position = "absolute";
-qrDiv.style.bottom = "30px";
-qrDiv.style.left = "50%";
-qrDiv.style.transform = "translateX(-50%)";
 document.body.appendChild(qrDiv);
 
-// QRCode 모듈 동적 로딩 후 표시
-import("https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js").then((QRCodeLib) => {
-  const QRCode = QRCodeLib.default;
+import("https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js").then(({ default: QRCode }) => {
   QRCode.toCanvas(document.getElementById("qr"), "https://vote-game.onrender.com", { width: 160 }, (err) => {
     if (err) console.error(err);
   });
 });
-
-
-
