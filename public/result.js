@@ -242,15 +242,21 @@ function playRevealEffect(result) {
 
 socket.on("update", ({ A, B }) => {
   updateBars(A, B);
-// ===== QR 코드 추가 =====
+// ===== QR 코드 출력 (결과창 맨 아래 중앙) =====
 const qrDiv = document.createElement("div");
 qrDiv.id = "qr";
+qrDiv.style.position = "absolute";
+qrDiv.style.bottom = "30px";
+qrDiv.style.left = "50%";
+qrDiv.style.transform = "translateX(-50%)";
 document.body.appendChild(qrDiv);
 
+// QRCode 모듈 동적 로딩 후 표시
 import("https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js").then((QRCodeLib) => {
   const QRCode = QRCodeLib.default;
-  QRCode.toCanvas(document.getElementById("qr"), "https://vote-game.onrender.com", { width: 160 }, function (err) {
+  QRCode.toCanvas(document.getElementById("qr"), "https://vote-game.onrender.com", { width: 160 }, (err) => {
     if (err) console.error(err);
   });
 });
+
 
