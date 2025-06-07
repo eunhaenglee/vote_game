@@ -4,11 +4,13 @@
     <title>Kaboom Vote Result</title>
     <meta charset="utf-8" />
     <style>
-      #qr {
+      #qr-img {
         position: absolute;
         bottom: 32px;
         left: 50%;
         transform: translateX(-50%);
+        width: 160px;
+        height: auto;
         z-index: 999;
       }
     </style>
@@ -16,16 +18,11 @@
   <body>
     <div id="kaboom-container"></div>
 
-    <!-- QR 코드용 canvas -->
-    <canvas id="qr"></canvas>
-
-    <!-- 반드시 QR 라이브러리를 먼저 로드 -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-
-    <!-- socket.io 먼저 -->
+    <!-- socket.io & main script -->
     <script src="/socket.io/socket.io.js"></script>
-
-    <!-- result.js는 가장 마지막에 로드 -->
     <script type="module" src="./result.js"></script>
+
+    <!-- 고정된 QR 이미지 삽입 -->
+    <img id="qr-img" src="/qr.png" alt="QR Code to vote" />
   </body>
 </html>
