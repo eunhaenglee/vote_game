@@ -1,55 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
     <title>Kaboom Vote Result</title>
-    <meta charset="utf-8" />
     <style>
       body {
         margin: 0;
-        background: #0f1c2c;
+        background: #0f1c2d;
         font-family: 'Amazon Ember', sans-serif;
         color: #fff;
-        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: 100vh;
       }
+
+      #kaboom-container {
+        width: 100%;
+        height: auto;
+        flex-grow: 1;
+      }
+
       #qr-container {
-        position: absolute;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: white;
-        padding: 10px;
-        border-radius: 8px;
+        margin: 20px 0;
       }
-      #qr-container img {
+
+      #qr {
         width: 160px;
         height: 160px;
       }
     </style>
   </head>
   <body>
-    <!-- Socket 연결 -->
-    <script src="/socket.io/socket.io.js"></script>
+    <!-- Kaboom 캔버스 렌더링 영역 -->
+    <div id="kaboom-container"></div>
 
-    <!-- Kaboom.js 메인 로직 -->
-    <script type="module" src="./result.js"></script>
-
-    <!-- QR 코드 표시 영역 -->
+    <!-- QR 코드 출력 영역 -->
     <div id="qr-container">
-      <img id="qr" alt="QR Code" />
+      <canvas id="qr"></canvas>
     </div>
 
-    <!-- QR 코드 생성 라이브러리 -->
+    <!-- 소켓 및 Kaboom 코드 -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="./result.js"></script>
+
+    <!-- QR 생성 라이브러리 -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script>
-      const url = "https://vote-game.onrender.com"; // 투표 링크
-      const qrImage = document.getElementById("qr");
-
-      QRCode.toDataURL(url, { width: 180 }, function (err, dataUrl) {
-        if (err) {
-          console.error("QR 생성 실패:", err);
-          return;
-        }
-        qrImage.src = dataUrl;
+      const url = "https://vote-game.onrender.com"; // 실제 도메인 입력
+      const qrCanvas = document.getElementById("qr");
+      QRCode.toCanvas(qrCanvas, url, { width: 160 }, function (error) {
+        if (error) console.error("QR 오류:", error);
       });
     </script>
   </body>
