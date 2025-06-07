@@ -10,16 +10,22 @@
         left: 50%;
         transform: translateX(-50%);
         z-index: 999;
-        background: white;
-        padding: 8px;
-        border-radius: 4px;
       }
     </style>
   </head>
   <body>
+    <div id="kaboom-container"></div>
+
+    <!-- QR 코드용 canvas -->
+    <canvas id="qr"></canvas>
+
+    <!-- 반드시 QR 라이브러리를 먼저 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+    <!-- socket.io 먼저 -->
     <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+    <!-- result.js는 가장 마지막에 로드 -->
     <script type="module" src="./result.js"></script>
-    <div id="qr"></div>
   </body>
 </html>
