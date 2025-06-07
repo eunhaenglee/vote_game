@@ -242,15 +242,16 @@ socket.on("update", ({ A, B }) => {
   updateBars(A, B);
 });
 
-// QR 생성은 kaboom 초기화 이후에 DOM 접근 가능하므로 별도 처리
+// QR 코드 그리기 (안전하게 window.QRCode 존재 확인 후 실행)
 window.addEventListener("DOMContentLoaded", () => {
-  const qrDiv = document.getElementById("qr");
-  if (window.QRCode && qrDiv) {
-    QRCode.toCanvas(qrDiv, "https://vote-game.onrender.com", { width: 160 }, (err) => {
+  const qrCanvas = document.getElementById("qr");
+  if (window.QRCode && qrCanvas) {
+    QRCode.toCanvas(qrCanvas, "https://vote-game.onrender.com", { width: 160 }, (err) => {
       if (err) console.error("QR Error:", err);
     });
   } else {
-    console.error("QRCode library not loaded or qr div not found");
+    console.error("QRCode library not loaded or canvas element not found.");
   }
 });
+
 
