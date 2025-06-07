@@ -1,58 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
     <title>Kaboom Vote Result</title>
+    <meta charset="utf-8" />
     <style>
-      body {
-        margin: 0;
-        background: #0f1c2d;
-        font-family: 'Amazon Ember', sans-serif;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        height: 100vh;
-      }
-
-      #kaboom-container {
-        width: 100%;
-        height: auto;
-        flex-grow: 1;
-      }
-
-      #qr-container {
-        margin: 20px 0;
-      }
-
       #qr {
-        width: 160px;
-        height: 160px;
+        position: absolute;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
       }
     </style>
   </head>
   <body>
-    <!-- Kaboom 캔버스 렌더링 영역 -->
     <div id="kaboom-container"></div>
-
-    <!-- QR 코드 출력 영역 -->
-    <div id="qr-container">
-      <canvas id="qr"></canvas>
-    </div>
-
-    <!-- 소켓 및 Kaboom 코드 -->
     <script src="/socket.io/socket.io.js"></script>
     <script type="module" src="./result.js"></script>
-
-    <!-- QR 생성 라이브러리 -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-    <script>
-      const url = "https://vote-game.onrender.com"; // 실제 도메인 입력
-      const qrCanvas = document.getElementById("qr");
-      QRCode.toCanvas(qrCanvas, url, { width: 160 }, function (error) {
-        if (error) console.error("QR 오류:", error);
-      });
-    </script>
   </body>
 </html>
