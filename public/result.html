@@ -3,18 +3,27 @@
   <head>
     <title>Kaboom Vote Result</title>
     <meta charset="utf-8" />
+    <style>
+      #qr {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 12px;
+        border-radius: 8px;
+      }
+    </style>
   </head>
   <body>
     <script src="/socket.io/socket.io.js"></script>
     <script type="module" src="./result.js"></script>
 
-    <!-- QR코드 표시 영역 -->
-    <div id="qr" style="margin-top: 32px; position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);"></div>
-
-    <!-- QR 코드 스크립트 -->
+    <!-- QR 코드 표시 -->
+    <div id="qr"></div>
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script>
-      const url = "https://vote-game.onrender.com"; // 실제 투표 URL
+      const url = "https://vote-game.onrender.com";
       QRCode.toCanvas(document.getElementById("qr"), url, { width: 180 }, function (error) {
         if (error) console.error(error);
       });
