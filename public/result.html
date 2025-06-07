@@ -4,43 +4,53 @@
     <title>Kaboom Vote Result</title>
     <meta charset="utf-8" />
     <style>
-      #qr {
+      body {
+        margin: 0;
+        background: #0f1c2c;
+        font-family: 'Amazon Ember', sans-serif;
+        color: #fff;
+        overflow-x: hidden;
+      }
+      #qr-container {
         position: absolute;
-        bottom: 20px;
+        bottom: 30px;
         left: 50%;
         transform: translateX(-50%);
         background: white;
-        padding: 12px;
+        padding: 10px;
         border-radius: 8px;
+      }
+      #qr-container img {
+        width: 160px;
+        height: 160px;
       }
     </style>
   </head>
   <body>
+    <!-- Socket 연결 -->
     <script src="/socket.io/socket.io.js"></script>
 
-    <!-- QR 코드 표시용 div -->
-    <div id="qr"></div>
+    <!-- Kaboom.js 메인 로직 -->
+    <script type="module" src="./result.js"></script>
 
-    <!-- QRCode 라이브러리 먼저 로드 -->
+    <!-- QR 코드 표시 영역 -->
+    <div id="qr-container">
+      <img id="qr" alt="QR Code" />
+    </div>
+
+    <!-- QR 코드 생성 라이브러리 -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-
-    <!-- QR 생성 코드: 반드시 QRCode가 로드된 후 실행 -->
     <script>
-      window.addEventListener("load", () => {
-        const url = "https://vote-game.onrender.com";
-        const qrTarget = document.getElementById("qr");
+      const url = "https://vote-game.onrender.com"; // 투표 링크
+      const qrImage = document.getElementById("qr");
 
-        if (QRCode && qrTarget) {
-          QRCode.toCanvas(qrTarget, url, { width: 180 }, function (error) {
-            if (error) console.error(error);
-          });
-        } else {
-          console.warn("QRCode library or target not ready.");
+      QRCode.toDataURL(url, { width: 180 }, function (err, dataUrl) {
+        if (err) {
+          console.error("QR 생성 실패:", err);
+          return;
         }
+        qrImage.src = dataUrl;
       });
     </script>
-
-    <!-- Kaboom 결과 로직은 마지막에 -->
-    <script type="module" src="./result.js"></script>
   </body>
 </html>
