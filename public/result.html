@@ -8,4 +8,13 @@
     <script src="/socket.io/socket.io.js"></script>
     <script type="module" src="./result.js"></script>
   </body>
+<div id="qr" style="margin-top: 32px;"></div>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<script>
+  const url = "https://vote-game.onrender.com"; // ← 실제 도메인으로 수정
+  QRCode.toCanvas(document.getElementById("qr"), url, { width: 180 }, function (error) {
+    if (error) console.error(error);
+  });
+</script>
+
 </html>
