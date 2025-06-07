@@ -242,13 +242,15 @@ socket.on("update", ({ A, B }) => {
   updateBars(A, B);
 });
 
-// === QR 코드 삽입 ===
-const qrDiv = document.createElement("div");
-qrDiv.id = "qr";
-document.body.appendChild(qrDiv);
-
-import("https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js").then(({ default: QRCode }) => {
-  QRCode.toCanvas(document.getElementById("qr"), "https://vote-game.onrender.com", { width: 160 }, (err) => {
-    if (err) console.error(err);
-  });
+// QR 생성은 kaboom 초기화 이후에 DOM 접근 가능하므로 별도 처리
+window.addEventListener("DOMContentLoaded", () => {
+  const qrDiv = document.getElementById("qr");
+  if (window.QRCode && qrDiv) {
+    QRCode.toCanvas(qrDiv, "https://vote-game.onrender.com", { width: 160 }, (err) => {
+      if (err) console.error("QR Error:", err);
+    });
+  } else {
+    console.error("QRCode library not loaded or qr div not found");
+  }
 });
+
