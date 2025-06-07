@@ -242,4 +242,10 @@ function playRevealEffect(result) {
 
 socket.on("update", ({ A, B }) => {
   updateBars(A, B);
+  
+kaboom({
+  background: [14, 29, 47],
+  canvas: document.createElement("canvas"),
+  root: document.getElementById("kaboom-container"), // 중요!
 });
+
