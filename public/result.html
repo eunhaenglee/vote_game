@@ -4,6 +4,12 @@
     <title>Kaboom Vote Result</title>
     <meta charset="utf-8" />
     <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #0e1d2f; /* Kaboom bg color fallback */
+        overflow: hidden;
+      }
       #qr {
         position: absolute;
         bottom: 32px;
@@ -14,7 +20,6 @@
     </style>
   </head>
   <body>
-    <div id="kaboom-container"></div>
     <script src="/socket.io/socket.io.js"></script>
     <script type="module" src="./result.js"></script>
   </body>
