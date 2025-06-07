@@ -242,6 +242,8 @@ function playRevealEffect(result) {
 
 socket.on("update", ({ A, B }) => {
   updateBars(A, B);
+});
+
 // ===== QR 코드 출력 (결과창 맨 아래 중앙) =====
 const qrDiv = document.createElement("div");
 qrDiv.id = "qr";
@@ -258,5 +260,6 @@ import("https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js").then((QRCodeLi
     if (err) console.error(err);
   });
 });
+
 
 
