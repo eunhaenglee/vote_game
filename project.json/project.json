@@ -1,0 +1,10 @@
+{
+    "build": {
+      "env": {},
+      "command": "yarn install"
+    },
+    "deploy": {
+      "startCommand": "yarn start"
+    }
+  }
+  
