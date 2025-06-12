@@ -4,7 +4,7 @@
 import kaboom from "https://unpkg.com/kaboom@3000.0.0-beta.2/dist/kaboom.mjs";
 
 kaboom({
-  background: [14, 29, 47],
+  background: [14, 29, 47], 
 });
 
 loadSound("pop", "/sounds/pop.mp3");         // 성공
