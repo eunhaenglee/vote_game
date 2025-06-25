@@ -163,7 +163,7 @@ function updateBars(aCount, bCount) {
     else teamScore.teamB++;
   }
 
-  scoreLabel.text = `Team A: ${teamScore.teamA} | Team B: ${teamScore.teamB}`;
+  scoreLabel.text = `Team A: ( ? ) | Team B: ( ? )`;
 }
 
 function logResult() {
