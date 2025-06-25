@@ -239,7 +239,9 @@ function playRevealEffect(result) {
 }
 
 socket.on("update", ({ A, B }) => {
-  updateBars(A, B);
+  if (!resultVisible) {  // 결과 락 중이면 update 무시 (⭐️ 추가)
+    updateBars(A, B);
+  }
 });
 
 // QR 코드 그리기 (안전하게 window.QRCode 존재 확인 후 실행)
