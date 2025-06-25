@@ -158,12 +158,13 @@ function updateBars(aCount, bCount) {
     bLabel.text = `B: ${bPercent}% (${bCount})`;
   }
 
+if (!resultVisible) {
   if (aCount !== bCount) {
     if (aCount > bCount) teamScore.teamA++;
     else teamScore.teamB++;
   }
-
-  scoreLabel.text = `Team A: ( ? ) | Team B: ( ? )`;
+}
+scoreLabel.text = `Team A: ( ? ) | Team B: ( ? )`;
 }
 
 function logResult() {
